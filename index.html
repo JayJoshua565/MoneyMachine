@@ -180,6 +180,25 @@
   .status-ok { background: rgba(53,96,63,0.25); color: #9FD4AC; }
   .status-err { background: rgba(139,46,46,0.25); color: #E8A9A9; }
 
+  .progress-track {
+    display: none;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .progress-track.show { display: block; }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--sepia-soft);
+    border-radius: 2px;
+    transition: width 0.4s ease, background 0.3s ease;
+  }
+  .progress-fill.done { background: var(--ledger-green); }
+  .progress-fill.failed { background: var(--ledger-red); }
+
   /* Results */
   .results { margin-top: 36px; }
 
@@ -319,6 +338,9 @@
   </div>
 
   <div class="status-line" id="statusLine"></div>
+  <div class="progress-track" id="progressTrack">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
 
   <div class="results" id="results">
     <p class="empty-state">Type a card name above to see its saved prices.</p>
@@ -373,9 +395,12 @@
 
   function getEntry(raw) {
     // Backward-compatible: old data was a plain array of printings.
-    // New data is { match_type, results }.
-    if (Array.isArray(raw)) return { match_type: 'exact', results: raw };
-    return raw || { match_type: 'none', results: [] };
+    // New data is { match_type, checked_at, results }.
+    if (Array.isArray(raw)) {
+      const stamps = raw.map(c => c.checked_at).filter(Boolean).sort();
+      return { match_type: 'exact', checked_at: stamps.at(-1) || null, results: raw };
+    }
+    return raw || { match_type: 'none', checked_at: null, results: [] };
   }
 
   function renderResults(query) {
@@ -445,13 +470,45 @@
     el.className = 'status-line show ' + (ok ? 'status-ok' : 'status-err');
   }
 
-  document.getElementById('searchInput').addEventListener('input', e => renderResults(e.target.value));
+  document.getElementById('searchInput').addEventListener('input', e => {
+    stopPolling();
+    hideProgress();
+    renderResults(e.target.value);
+  });
 
-  document.getElementById('refreshBtn').addEventListener('click', () => loadDeals(true));
+  document.getElementById('refreshBtn').addEventListener('click', () => {
+    stopPolling();
+    hideProgress();
+    loadDeals(true);
+  });
 
   document.getElementById('settingsToggle').addEventListener('click', () => {
     document.getElementById('settingsPanel').classList.toggle('open');
   });
+
+  const ESTIMATED_RUN_MS = 25000; // typical observed run time (your logs: 14-26s)
+
+  function setProgress(percent, state) {
+    const track = document.getElementById('progressTrack');
+    const fill = document.getElementById('progressFill');
+    track.classList.add('show');
+    fill.style.width = percent + '%';
+    fill.className = 'progress-fill' + (state ? ' ' + state : '');
+  }
+
+  function hideProgress() {
+    const track = document.getElementById('progressTrack');
+    const fill = document.getElementById('progressFill');
+    track.classList.remove('show');
+    fill.style.width = '0%';
+    fill.className = 'progress-fill';
+  }
+
+  let pollTimer = null;
+
+  function stopPolling() {
+    if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+  }
 
   document.getElementById('checkNowBtn').addEventListener('click', async () => {
     const cardName = document.getElementById('searchInput').value.trim();
@@ -464,6 +521,9 @@
       showStatus('Add your repo and a personal access token below, then try again.', false);
       return;
     }
+
+    stopPolling();
+    const priorTimestamp = getEntry(dealsData[cardName]).checked_at;
 
     const btn = document.getElementById('checkNowBtn');
     btn.disabled = true;
@@ -481,18 +541,58 @@
       });
 
       if (res.status === 204) {
-        showStatus(`Check started for "${cardName}". GitHub Actions usually finishes in under a minute — press Refresh below once it's done.`, true);
+        btn.textContent = 'Check now';
+        btn.disabled = false;
+        startPolling(cardName, priorTimestamp);
       } else {
         const body = await res.text();
         showStatus(`GitHub returned an error (${res.status}): ${body.slice(0, 150)}`, false);
+        btn.disabled = false;
+        btn.textContent = 'Check now';
       }
     } catch (e) {
       showStatus('Could not reach GitHub — check your connection and token.', false);
-    } finally {
       btn.disabled = false;
       btn.textContent = 'Check now';
     }
   });
+
+  function startPolling(cardName, priorTimestamp) {
+    const startedAt = Date.now();
+    const maxMs = 120000; // give up after 2 minutes
+    let elapsed = 0;
+
+    showStatus(`Checking "${cardName}"… (0s)`, true);
+    setProgress(2, null);
+
+    pollTimer = setInterval(async () => {
+      elapsed = Math.round((Date.now() - startedAt) / 1000);
+
+      if (Date.now() - startedAt > maxMs) {
+        stopPolling();
+        showStatus(`Still not back after 2 minutes — check the Actions tab on GitHub, or press Refresh manually in a bit.`, false);
+        setProgress(100, 'failed');
+        return;
+      }
+
+      await loadDeals(true);
+      const entry = getEntry(dealsData[cardName]);
+
+      if (entry.checked_at && entry.checked_at !== priorTimestamp) {
+        stopPolling();
+        showStatus(`Done — "${cardName}" updated just now.`, true);
+        setProgress(100, 'done');
+        setTimeout(hideProgress, 2500);
+        document.getElementById('searchInput').value = cardName;
+        renderResults(cardName);
+      } else {
+        showStatus(`Checking "${cardName}"… (${elapsed}s)`, true);
+        // Creep toward, but never claim, 100% until we've actually confirmed completion.
+        const pct = Math.min(94, (Date.now() - startedAt) / ESTIMATED_RUN_MS * 100);
+        setProgress(pct, null);
+      }
+    }, 4000);
+  }
 
   loadDeals(false);
 </script>

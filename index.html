@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #24302E;
+    --bg-soft: #2C3A38;
+    --paper: #F2ECD9;
+    --paper-edge: #E4DCC4;
+    --ink: #1F2421;
+    --ink-soft: #55564B;
+    --sepia: #8B5E34;
+    --sepia-soft: #B08A5F;
+    --ledger-red: #8B2E2E;
+    --ledger-green: #35603F;
+
+    --r-common: #6B7280;
+    --r-uncommon: #2F6B4F;
+    --r-rare: #2456A6;
+    --r-doublerare: #B8860B;
+    --r-illustration: #6B3FA0;
+    --r-hyper: #B23A6B;
+    --r-promo: #1F7A8C;
+    --r-default: #8A8577;
+
+    --font-display: 'Special Elite', serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at top left, var(--bg-soft) 0%, transparent 60%);
+    color: var(--paper);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  header { margin-bottom: 32px; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sepia-soft);
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 6vw, 44px);
+    letter-spacing: 0.02em;
+    margin: 0 0 8px;
+    color: var(--paper);
+  }
+
+  .subtitle {
+    color: #C9C6B6;
+    font-size: 15px;
+    margin: 0;
+    max-width: 46ch;
+  }
+
+  .sync-line {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: #8E9C97;
+    margin-top: 14px;
+  }
+
+  /* Search row */
+  .search-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 28px;
+  }
+
+  .search-input {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: 15px;
+    padding: 13px 16px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 2px solid transparent;
+    border-radius: 3px;
+    outline: none;
+  }
+  .search-input::placeholder { color: var(--ink-soft); }
+  .search-input:focus-visible {
+    border-color: var(--sepia);
+  }
+
+  button {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    padding: 0 18px;
+  }
+
+  .btn-primary {
+    background: var(--sepia);
+    color: var(--paper);
+  }
+  .btn-primary:hover { background: #74502C; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--sepia-soft);
+    border: 1px solid #465250;
+    padding: 0 14px;
+  }
+  .btn-ghost:hover { border-color: var(--sepia-soft); color: var(--paper); }
+
+  *:focus-visible { outline: 2px solid var(--sepia-soft); outline-offset: 2px; }
+
+  /* Settings panel */
+  .settings {
+    margin-top: 14px;
+    padding: 16px;
+    background: rgba(0,0,0,0.15);
+    border: 1px solid #3A4644;
+    border-radius: 4px;
+    display: none;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .settings.open { display: flex; }
+  .settings label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8E9C97;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .settings input {
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 9px 11px;
+    background: var(--paper);
+    color: var(--ink);
+    border: none;
+    border-radius: 3px;
+  }
+  .settings .hint {
+    font-size: 12px;
+    color: #7C8985;
+    margin: 0;
+  }
+
+  .status-line {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 3px;
+    display: none;
+  }
+  .status-line.show { display: block; }
+  .status-ok { background: rgba(53,96,63,0.25); color: #9FD4AC; }
+  .status-err { background: rgba(139,46,46,0.25); color: #E8A9A9; }
+
+  /* Results */
+  .results { margin-top: 36px; }
+
+  .empty-state {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: #7C8985;
+    padding: 40px 0;
+    text-align: center;
+    border-top: 1px dashed #3A4644;
+  }
+
+  .group-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--paper);
+    margin: 28px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #3A4644;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    gap: 14px;
+    background: var(--paper);
+    border-radius: 3px;
+    padding: 14px 16px 14px 22px;
+    margin-bottom: 10px;
+    color: var(--ink);
+    animation: rise 0.25s ease both;
+  }
+  @media (prefers-reduced-motion: reduce) { .card { animation: none; } }
+  @keyframes rise { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .rarity-tab {
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 6px;
+    border-radius: 2px;
+  }
+
+  .punch {
+    position: absolute;
+    left: 10px; top: 10px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--bg);
+    opacity: 0.15;
+  }
+
+  .card-thumb {
+    width: 56px;
+    height: 78px;
+    object-fit: cover;
+    border-radius: 2px;
+    flex-shrink: 0;
+    background: var(--paper-edge);
+  }
+
+  .card-info { flex: 1; min-width: 0; }
+
+  .card-name {
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0 0 2px;
+  }
+
+  .card-meta {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+  }
+
+  .rarity-label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 2px;
+    color: #fff;
+    display: inline-block;
+  }
+
+  .ledger {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 2px 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .ledger .k { color: var(--ink-soft); text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .ledger .v { font-weight: 600; }
+  .ledger .v.sell { color: var(--ledger-red); }
+
+  .card-footer {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    margin-top: 10px;
+  }
+
+  @media (max-width: 480px) {
+    .card { flex-direction: column; }
+    .ledger { grid-template-columns: repeat(2, auto); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Pokémon TCG · Price Archive</p>
+    <h1>Card Ledger</h1>
+    <p class="subtitle">Search a card. See what it last sold for, its current low, and Cardmarket's trend price — all in one place.</p>
+    <p class="sync-line" id="syncLine">Loading saved data…</p>
+  </header>
+
+  <div class="search-row">
+    <input type="text" class="search-input" id="searchInput" placeholder="Card name, e.g. Charizard ex" autocomplete="off">
+    <button class="btn-primary" id="checkNowBtn">Check now</button>
+    <button class="btn-ghost" id="refreshBtn" title="Reload saved data">↻ Refresh</button>
+    <button class="btn-ghost" id="settingsToggle" title="Connect your repo">⚙</button>
+  </div>
+
+  <div class="settings" id="settingsPanel">
+    <div>
+      <label for="repoInput">GitHub repo (owner/name)</label>
+      <input type="text" id="repoInput" placeholder="yourname/pokemon-card-tracker">
+    </div>
+    <div>
+      <label for="tokenInput">Personal access token (Actions: write)</label>
+      <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx">
+    </div>
+    <p class="hint">Used only to trigger the "Check card prices" workflow directly from your browser. Kept in memory for this page visit only — nothing is saved or sent anywhere except GitHub's API.</p>
+  </div>
+
+  <div class="status-line" id="statusLine"></div>
+
+  <div class="results" id="results">
+    <p class="empty-state">Type a card name above to see its saved prices.</p>
+  </div>
+
+</div>
+
+<script>
+  const RARITY_COLORS = [
+    [/hyper|secret|rainbow/i, 'var(--r-hyper)'],
+    [/illustration/i, 'var(--r-illustration)'],
+    [/double rare|ultra rare|^rare holo v$|vmax|vstar/i, 'var(--r-doublerare)'],
+    [/promo/i, 'var(--r-promo)'],
+    [/rare/i, 'var(--r-rare)'],
+    [/uncommon/i, 'var(--r-uncommon)'],
+    [/common/i, 'var(--r-common)'],
+  ];
+  function rarityColor(rarity) {
+    if (!rarity) return 'var(--r-default)';
+    for (const [re, color] of RARITY_COLORS) if (re.test(rarity)) return color;
+    return 'var(--r-default)';
+  }
+
+  function money(v) {
+    if (v === null || v === undefined) return '—';
+    return '€' + Number(v).toFixed(2);
+  }
+
+  let dealsData = {};
+
+  async function loadDeals(bustCache) {
+    const url = 'data/deals.json' + (bustCache ? ('?t=' + Date.now()) : '');
+    try {
+      const res = await fetch(url);
+      dealsData = await res.json();
+      const timestamps = Object.values(dealsData).flat().map(c => c.checked_at).filter(Boolean);
+      const syncEl = document.getElementById('syncLine');
+      if (timestamps.length) {
+        const latest = new Date(timestamps.sort().at(-1));
+        syncEl.textContent = 'Last synced ' + latest.toLocaleString();
+      } else {
+        syncEl.textContent = 'No saved data yet — run the bot at least once.';
+      }
+    } catch (e) {
+      document.getElementById('syncLine').textContent = 'Could not load data/deals.json — check it exists next to this page.';
+    }
+    renderResults(document.getElementById('searchInput').value);
+  }
+
+  function renderResults(query) {
+    const container = document.getElementById('results');
+    query = query.trim().toLowerCase();
+
+    if (!query) {
+      container.innerHTML = '<p class="empty-state">Type a card name above to see its saved prices.</p>';
+      return;
+    }
+
+    const matches = Object.entries(dealsData).filter(([name]) => name.toLowerCase().includes(query));
+
+    if (!matches.length) {
+      container.innerHTML = `<p class="empty-state">No saved prices for &ldquo;${escapeHtml(query)}&rdquo; yet.<br>Press <strong>Check now</strong> to look it up live.</p>`;
+      return;
+    }
+
+    container.innerHTML = matches.map(([name, printings]) => {
+      const sorted = [...printings].sort((a, b) => (b.price_sell_avg || 0) - (a.price_sell_avg || 0));
+      const cards = sorted.map(cardHtml).join('');
+      return `<h2 class="group-title">${escapeHtml(name)} <span style="font-family:var(--font-mono);font-size:13px;color:#8E9C97;">(${printings.length} printing${printings.length > 1 ? 's' : ''})</span></h2>${cards}`;
+    }).join('');
+  }
+
+  function cardHtml(c) {
+    const color = rarityColor(c.rarity);
+    return `
+      <div class="card">
+        <div class="rarity-tab" style="background:${color}"></div>
+        <div class="punch"></div>
+        ${c.image ? `<img class="card-thumb" src="${c.image}" alt="${escapeHtml(c.name || '')}" loading="lazy">` : ''}
+        <div class="card-info">
+          <p class="card-name">${escapeHtml(c.name || 'Unknown')}</p>
+          <p class="card-meta">${escapeHtml(c.expansion || '')} · #${escapeHtml(c.number || '?')}
+            &nbsp;<span class="rarity-label" style="background:${color}">${escapeHtml(c.rarity || 'Unknown')}</span>
+          </p>
+          <div class="ledger">
+            <div><div class="k">Sell avg</div><div class="v sell">${money(c.price_sell_avg)}</div></div>
+            <div><div class="k">Low</div><div class="v">${money(c.price_low)}</div></div>
+            <div><div class="k">Trend</div><div class="v">${money(c.price_trend)}</div></div>
+            <div><div class="k">30d avg</div><div class="v">${money(c.price_avg_30d)}</div></div>
+          </div>
+          <p class="card-footer">Cardmarket data as of ${escapeHtml(c.cardmarket_updated_at || '—')} · <a href="${c.url || '#'}" target="_blank" rel="noopener" style="color:var(--sepia);">view on Cardmarket ↗</a></p>
+        </div>
+      </div>`;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function showStatus(msg, ok) {
+    const el = document.getElementById('statusLine');
+    el.textContent = msg;
+    el.className = 'status-line show ' + (ok ? 'status-ok' : 'status-err');
+  }
+
+  document.getElementById('searchInput').addEventListener('input', e => renderResults(e.target.value));
+
+  document.getElementById('refreshBtn').addEventListener('click', () => loadDeals(true));
+
+  document.getElementById('settingsToggle').addEventListener('click', () => {
+    document.getElementById('settingsPanel').classList.toggle('open');
+  });
+
+  document.getElementById('checkNowBtn').addEventListener('click', async () => {
+    const cardName = document.getElementById('searchInput').value.trim();
+    const repo = document.getElementById('repoInput').value.trim();
+    const token = document.getElementById('tokenInput').value.trim();
+
+    if (!cardName) { showStatus('Type a card name first.', false); return; }
+    if (!repo || !token) {
+      document.getElementById('settingsPanel').classList.add('open');
+      showStatus('Add your repo and a personal access token below, then try again.', false);
+      return;
+    }
+
+    const btn = document.getElementById('checkNowBtn');
+    btn.disabled = true;
+    btn.textContent = 'Starting…';
+
+    try {
+      const res = await fetch(`https://api.github.com/repos/${repo}/actions/workflows/check-deals.yml/dispatches`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ref: 'main', inputs: { card_name: cardName } })
+      });
+
+      if (res.status === 204) {
+        showStatus(`Check started for "${cardName}". GitHub Actions usually finishes in under a minute — press Refresh below once it's done.`, true);
+      } else {
+        const body = await res.text();
+        showStatus(`GitHub returned an error (${res.status}): ${body.slice(0, 150)}`, false);
+      }
+    } catch (e) {
+      showStatus('Could not reach GitHub — check your connection and token.', false);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Check now';
+    }
+  });
+
+  loadDeals(false);
+</script>
+</body>
+</html>

@@ -58,7 +58,11 @@ def lookup_card(client, name):
             "checked_at": datetime.now(timezone.utc).isoformat(),
         })
 
-    return {"match_type": match_type, "results": results}
+    return {
+        "match_type": match_type,
+        "checked_at": datetime.now(timezone.utc).isoformat(),
+        "results": results,
+    }
 
 
 def main():

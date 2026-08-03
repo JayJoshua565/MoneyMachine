@@ -354,7 +354,10 @@
     try {
       const res = await fetch(url);
       dealsData = await res.json();
-      const timestamps = Object.values(dealsData).flat().map(c => c.checked_at).filter(Boolean);
+      const timestamps = Object.values(dealsData)
+        .flatMap(raw => getEntry(raw).results)
+        .map(c => c.checked_at)
+        .filter(Boolean);
       const syncEl = document.getElementById('syncLine');
       if (timestamps.length) {
         const latest = new Date(timestamps.sort().at(-1));
@@ -368,6 +371,13 @@
     renderResults(document.getElementById('searchInput').value);
   }
 
+  function getEntry(raw) {
+    // Backward-compatible: old data was a plain array of printings.
+    // New data is { match_type, results }.
+    if (Array.isArray(raw)) return { match_type: 'exact', results: raw };
+    return raw || { match_type: 'none', results: [] };
+  }
+
   function renderResults(query) {
     const container = document.getElementById('results');
     query = query.trim().toLowerCase();
@@ -377,17 +387,28 @@
       return;
     }
 
-    const matches = Object.entries(dealsData).filter(([name]) => name.toLowerCase().includes(query));
+    const matches = Object.entries(dealsData)
+      .map(([name, raw]) => [name, getEntry(raw)])
+      .filter(([name]) => name.toLowerCase().includes(query));
 
     if (!matches.length) {
-      container.innerHTML = `<p class="empty-state">No saved prices for &ldquo;${escapeHtml(query)}&rdquo; yet.<br>Press <strong>Check now</strong> to look it up live.</p>`;
+      container.innerHTML = `<p class="empty-state">No saved prices for &ldquo;${escapeHtml(query)}&rdquo; yet.<br>Press <strong>Check now</strong> to look it up live.<br><br><span style="font-size:11px;">Tip: search the card's official name (e.g. "Mewtwo"), not a nickname or set name &mdash; nicknames won't match.</span></p>`;
       return;
     }
 
-    container.innerHTML = matches.map(([name, printings]) => {
-      const sorted = [...printings].sort((a, b) => (b.price_sell_avg || 0) - (a.price_sell_avg || 0));
+    container.innerHTML = matches.map(([name, entry]) => {
+      const sorted = [...entry.results].sort((a, b) => (b.price_sell_avg || 0) - (a.price_sell_avg || 0));
+
+      if (!sorted.length) {
+        return `<h2 class="group-title">${escapeHtml(name)}</h2><p class="empty-state" style="border-top:none;padding-top:0;">No cards found under this name yet. Try <strong>Check now</strong>, or search just the Pok&eacute;mon's name on its own.</p>`;
+      }
+
+      const broadNote = entry.match_type === 'broad'
+        ? `<p style="font-family:var(--font-mono);font-size:11px;color:#B08A5F;margin:-6px 0 10px;">Broad match &mdash; no exact hit for &ldquo;${escapeHtml(name)}&rdquo;, showing cards matching part of it instead.</p>`
+        : '';
+
       const cards = sorted.map(cardHtml).join('');
-      return `<h2 class="group-title">${escapeHtml(name)} <span style="font-family:var(--font-mono);font-size:13px;color:#8E9C97;">(${printings.length} printing${printings.length > 1 ? 's' : ''})</span></h2>${cards}`;
+      return `<h2 class="group-title">${escapeHtml(name)} <span style="font-family:var(--font-mono);font-size:13px;color:#8E9C97;">(${sorted.length} printing${sorted.length > 1 ? 's' : ''})</span></h2>${broadNote}${cards}`;
     }).join('');
   }
 

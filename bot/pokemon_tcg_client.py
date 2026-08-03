@@ -29,6 +29,28 @@ class PokemonTcgClient:
         return response.json()
 
     def find_cards(self, name):
-        """Search for cards by (partial) name. Returns raw card objects."""
+        """
+        Search for cards by name. Tries an exact phrase match first (best
+        for official names like "Charizard ex"). If that finds nothing,
+        falls back to matching any individual word in the name -- this
+        catches nickname-style or partial searches (e.g. "Corocoro Mewtwo"
+        falls back to matching every card with "Mewtwo" in the name, since
+        "Corocoro" is a set/promo nickname, not part of the card's name).
+
+        Returns (cards, match_type) where match_type is "exact", "broad",
+        or "none".
+        """
         data = self._get("cards", params={"q": f'name:"{name}"'})
-        return data.get("data", [])
+        cards = data.get("data", [])
+        if cards:
+            return cards, "exact"
+
+        words = [w for w in name.split() if w]
+        if len(words) > 1:
+            query = " OR ".join(f'name:"{w}"' for w in words)
+            data = self._get("cards", params={"q": query})
+            cards = data.get("data", [])
+            if cards:
+                return cards, "broad"
+
+        return [], "none"

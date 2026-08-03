@@ -34,7 +34,7 @@ def save_json(path, data):
 
 def lookup_card(client, name):
     """Search for a card name, pull out its Cardmarket pricing block."""
-    matches = client.find_cards(name)
+    matches, match_type = client.find_cards(name)
     results = []
 
     for card in matches:
@@ -58,7 +58,7 @@ def lookup_card(client, name):
             "checked_at": datetime.now(timezone.utc).isoformat(),
         })
 
-    return results
+    return {"match_type": match_type, "results": results}
 
 
 def main():

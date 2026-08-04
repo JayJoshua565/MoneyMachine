@@ -24,7 +24,10 @@ TRACKED_FILE = ROOT / "data" / "tracked_cards.json"
 def load_json(path, default):
     if path.exists():
         with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
+            content = f.read().strip()
+            if not content:
+                return default  # file exists but is empty -- treat as missing
+            return json.loads(content)
     return default
 
 

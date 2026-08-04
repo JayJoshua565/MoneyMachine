@@ -5,19 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Card Ledger</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #24302E;
-    --bg-soft: #2C3A38;
-    --paper: #F2ECD9;
-    --paper-edge: #E4DCC4;
-    --ink: #1F2421;
-    --ink-soft: #55564B;
+    --bg: #1F2C2A;
+    --bg-soft: #263531;
+    --paper: #F4EFE2;
+    --paper-edge: #E7E0CC;
+    --ink: #22261F;
+    --ink-soft: #6B6A5C;
     --sepia: #8B5E34;
     --sepia-soft: #B08A5F;
-    --ledger-red: #8B2E2E;
-    --ledger-green: #35603F;
+    --ledger-red: #8B3A3A;
+    --ledger-green: #3E6A4C;
+    --gold: #C79A4B;
 
     --r-common: #6B7280;
     --r-uncommon: #2F6B4F;
@@ -28,7 +29,7 @@
     --r-promo: #1F7A8C;
     --r-default: #8A8577;
 
-    --font-display: 'Special Elite', serif;
+    --font-display: 'Fraunces', serif;
     --font-body: 'Inter', system-ui, sans-serif;
     --font-mono: 'IBM Plex Mono', monospace;
   }
@@ -38,22 +39,21 @@
   body {
     margin: 0;
     background: var(--bg);
-    background-image:
-      radial-gradient(ellipse at top left, var(--bg-soft) 0%, transparent 60%);
+    background-image: radial-gradient(ellipse at top left, var(--bg-soft) 0%, transparent 60%);
     color: var(--paper);
     font-family: var(--font-body);
     min-height: 100vh;
-    padding: 48px 20px 80px;
+    padding: 52px 20px 90px;
   }
 
-  .wrap { max-width: 760px; margin: 0 auto; }
+  .wrap { max-width: 720px; margin: 0 auto; }
 
-  header { margin-bottom: 32px; }
+  header { margin-bottom: 36px; }
 
   .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--sepia-soft);
     margin: 0 0 10px;
@@ -61,48 +61,63 @@
 
   h1 {
     font-family: var(--font-display);
-    font-size: clamp(30px, 6vw, 44px);
-    letter-spacing: 0.02em;
-    margin: 0 0 8px;
+    font-weight: 600;
+    font-size: clamp(32px, 6vw, 46px);
+    letter-spacing: -0.01em;
+    margin: 0 0 10px;
     color: var(--paper);
   }
 
   .subtitle {
-    color: #C9C6B6;
+    color: #BFBBA9;
     font-size: 15px;
+    line-height: 1.5;
     margin: 0;
-    max-width: 46ch;
+    max-width: 48ch;
   }
 
   .sync-line {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: #8E9C97;
-    margin-top: 14px;
+    font-size: 12.5px;
+    color: #7C8985;
+    margin-top: 16px;
   }
 
-  /* Search row */
-  .search-row {
-    display: flex;
-    gap: 8px;
-    margin-top: 28px;
+  /* Panels share this card-like surface */
+  .panel {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #34423E;
+    border-radius: 10px;
+    padding: 18px 20px;
   }
 
-  .search-input {
-    flex: 1;
+  .panel + .panel { margin-top: 16px; }
+
+  .panel-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7C8985;
+    margin: 0 0 12px;
+  }
+
+  /* Trigger row */
+  .trigger-row { display: flex; gap: 8px; }
+
+  input[type="text"], input[type="password"] {
     font-family: var(--font-body);
     font-size: 15px;
-    padding: 13px 16px;
+    padding: 12px 15px;
     background: var(--paper);
     color: var(--ink);
     border: 2px solid transparent;
-    border-radius: 3px;
+    border-radius: 8px;
     outline: none;
   }
-  .search-input::placeholder { color: var(--ink-soft); }
-  .search-input:focus-visible {
-    border-color: var(--sepia);
-  }
+  input::placeholder { color: var(--ink-soft); }
+  input:focus-visible { border-color: var(--sepia); }
+
+  .trigger-row input[type="text"] { flex: 1; min-width: 0; }
 
   button {
     font-family: var(--font-body);
@@ -110,14 +125,11 @@
     font-size: 14px;
     cursor: pointer;
     border: none;
-    border-radius: 3px;
+    border-radius: 8px;
     padding: 0 18px;
   }
 
-  .btn-primary {
-    background: var(--sepia);
-    color: var(--paper);
-  }
+  .btn-primary { background: var(--sepia); color: var(--paper); }
   .btn-primary:hover { background: #74502C; }
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -133,56 +145,42 @@
 
   /* Settings panel */
   .settings {
-    margin-top: 14px;
-    padding: 16px;
+    margin-top: 12px;
+    padding: 14px 16px;
     background: rgba(0,0,0,0.15);
     border: 1px solid #3A4644;
-    border-radius: 4px;
+    border-radius: 8px;
     display: none;
     gap: 10px;
     flex-direction: column;
   }
   .settings.open { display: flex; }
   .settings label {
-    font-family: var(--font-mono);
     font-size: 11px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     color: #8E9C97;
     display: block;
     margin-bottom: 4px;
   }
-  .settings input {
-    width: 100%;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    padding: 9px 11px;
-    background: var(--paper);
-    color: var(--ink);
-    border: none;
-    border-radius: 3px;
-  }
-  .settings .hint {
-    font-size: 12px;
-    color: #7C8985;
-    margin: 0;
-  }
+  .settings input { width: 100%; font-size: 13px; }
+  .settings .hint { font-size: 12px; color: #7C8985; margin: 8px 0 0; line-height: 1.5; }
 
   .status-line {
-    font-family: var(--font-mono);
     font-size: 13px;
-    margin-top: 12px;
+    margin-top: 10px;
     padding: 10px 12px;
-    border-radius: 3px;
+    border-radius: 6px;
     display: none;
   }
   .status-line.show { display: block; }
-  .status-ok { background: rgba(53,96,63,0.25); color: #9FD4AC; }
-  .status-err { background: rgba(139,46,46,0.25); color: #E8A9A9; }
+  .status-ok { background: rgba(62,106,76,0.22); color: #A6D9AF; }
+  .status-err { background: rgba(139,58,58,0.22); color: #EBB4B4; }
 
   .progress-track {
     display: none;
-    height: 4px;
+    height: 3px;
     background: rgba(255,255,255,0.08);
     border-radius: 2px;
     margin-top: 8px;
@@ -199,87 +197,95 @@
   .progress-fill.done { background: var(--ledger-green); }
   .progress-fill.failed { background: var(--ledger-red); }
 
+  /* Browse panel: tabs + search */
+  .browse-panel { margin-top: 20px; }
+
+  .tabs { display: flex; gap: 6px; margin-bottom: 14px; }
+  .tab {
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-weight: 600;
+    background: transparent;
+    color: #8E9C97;
+    border: 1px solid #3A4644;
+    border-radius: 999px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .tab:hover { border-color: var(--sepia-soft); color: var(--paper); }
+  .tab.active { background: var(--sepia); border-color: var(--sepia); color: var(--paper); }
+  .tab .count { opacity: 0.75; font-weight: 400; }
+
+  .browse-search { width: 100%; }
+
   /* Results */
-  .results { margin-top: 36px; }
+  .results { margin-top: 22px; }
 
   .empty-state {
-    font-family: var(--font-mono);
     font-size: 14px;
+    line-height: 1.7;
     color: #7C8985;
-    padding: 40px 0;
+    padding: 34px 10px;
     text-align: center;
-    border-top: 1px dashed #3A4644;
   }
 
   .group-title {
     font-family: var(--font-display);
-    font-size: 20px;
+    font-weight: 600;
+    font-size: 19px;
     color: var(--paper);
-    margin: 28px 0 12px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid #3A4644;
+    margin: 26px 0 12px;
+  }
+  .group-title:first-child { margin-top: 0; }
+  .group-title .count { font-family: var(--font-body); font-size: 12.5px; font-weight: 400; color: #8E9C97; }
+
+  .broad-note {
+    font-size: 12px;
+    color: var(--sepia-soft);
+    margin: -6px 0 10px;
   }
 
+  /* Cardmarket card */
   .card {
     position: relative;
     display: flex;
     gap: 14px;
     background: var(--paper);
-    border-radius: 3px;
-    padding: 14px 16px 14px 22px;
+    border-radius: 8px;
+    padding: 14px 16px 14px 18px;
     margin-bottom: 10px;
     color: var(--ink);
-    animation: rise 0.25s ease both;
+    border-left: 3px solid transparent;
+    animation: rise 0.2s ease both;
   }
   @media (prefers-reduced-motion: reduce) { .card { animation: none; } }
-  @keyframes rise { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-
-  .rarity-tab {
-    position: absolute;
-    left: 0; top: 8px; bottom: 8px;
-    width: 6px;
-    border-radius: 2px;
-  }
-
-  .punch {
-    position: absolute;
-    left: 10px; top: 10px;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--bg);
-    opacity: 0.15;
-  }
+  @keyframes rise { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
 
   .card-thumb {
-    width: 56px;
-    height: 78px;
+    width: 54px;
+    height: 75px;
     object-fit: cover;
-    border-radius: 2px;
+    border-radius: 4px;
     flex-shrink: 0;
     background: var(--paper-edge);
   }
 
   .card-info { flex: 1; min-width: 0; }
 
-  .card-name {
-    font-weight: 600;
-    font-size: 15px;
-    margin: 0 0 2px;
-  }
+  .card-top-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
 
-  .card-meta {
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    margin: 0 0 8px;
-  }
+  .card-name { font-weight: 600; font-size: 15px; margin: 0 0 2px; }
+
+  .card-meta { font-size: 12.5px; color: var(--ink-soft); margin: 0 0 10px; }
 
   .rarity-label {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 10px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 2px 6px;
-    border-radius: 2px;
+    letter-spacing: 0.04em;
+    padding: 2px 7px;
+    border-radius: 999px;
     color: #fff;
     display: inline-block;
   }
@@ -287,25 +293,82 @@
   .ledger {
     display: grid;
     grid-template-columns: repeat(4, auto);
-    gap: 2px 16px;
-    font-family: var(--font-mono);
-    font-size: 12px;
+    gap: 2px 18px;
   }
-  .ledger .k { color: var(--ink-soft); text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
-  .ledger .v { font-weight: 600; }
+  .ledger .k { font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); }
+  .ledger .v { font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
   .ledger .v.sell { color: var(--ledger-red); }
 
-  .card-footer {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    color: var(--ink-soft);
-    margin-top: 10px;
-  }
+  .card-footer { font-size: 11px; color: var(--ink-soft); margin-top: 10px; }
+  .card-footer a { color: var(--sepia); text-decoration: none; }
+  .card-footer a:hover { text-decoration: underline; }
 
   @media (max-width: 480px) {
     .card { flex-direction: column; }
     .ledger { grid-template-columns: repeat(2, auto); }
   }
+
+  /* Favorite star */
+  .fav-btn {
+    background: transparent;
+    border: none;
+    padding: 2px;
+    font-size: 18px;
+    line-height: 1;
+    color: #C9C2A6;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .fav-btn:hover { color: var(--gold); }
+  .fav-btn.is-fav { color: var(--gold); }
+
+  .vinted-fav-btn {
+    position: absolute;
+    top: 6px; right: 6px;
+    background: rgba(31,44,42,0.72);
+    border: none;
+    border-radius: 50%;
+    width: 26px; height: 26px;
+    font-size: 15px;
+    color: #E7E2D0;
+    cursor: pointer;
+  }
+  .vinted-fav-btn:hover { color: var(--gold); }
+  .vinted-fav-btn.is-fav { color: var(--gold); }
+
+  /* Vinted grid */
+  .vinted-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+    gap: 10px;
+  }
+  .vinted-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: rgba(244,239,226,0.05);
+    border: 1px solid #34423E;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--paper);
+    transition: border-color 0.15s ease;
+  }
+  .vinted-item:hover { border-color: var(--sepia-soft); }
+  .vinted-item img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--bg-soft); }
+  .vinted-title {
+    font-size: 11.5px;
+    padding: 7px 9px 2px;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .vinted-price { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; color: #9FD4AC; padding: 0 9px 4px; }
+  .vinted-source-tag { font-size: 10px; color: #7C8985; padding: 0 9px 9px; display: block; }
+
+  .list-note { font-size: 12.5px; color: #8E9C97; margin: 0 0 12px; }
 </style>
 </head>
 <body>
@@ -314,36 +377,45 @@
   <header>
     <p class="eyebrow">Pokémon TCG · Price Archive</p>
     <h1>Card Ledger</h1>
-    <p class="subtitle">Search a card. See what it last sold for, its current low, and Cardmarket's trend price — all in one place.</p>
+    <p class="subtitle">Check a card's price across Cardmarket and Vinted, then save the ones worth watching.</p>
     <p class="sync-line" id="syncLine">Loading saved data…</p>
   </header>
 
-  <div class="search-row">
-    <input type="text" class="search-input" id="searchInput" placeholder="Card name, e.g. Charizard ex" autocomplete="off">
-    <button class="btn-primary" id="checkNowBtn">Check now</button>
-    <button class="btn-ghost" id="refreshBtn" title="Reload saved data">↻ Refresh</button>
-    <button class="btn-ghost" id="settingsToggle" title="Connect your repo">⚙</button>
-  </div>
-
-  <div class="settings" id="settingsPanel">
-    <div>
-      <label for="repoInput">GitHub repo (owner/name)</label>
-      <input type="text" id="repoInput" placeholder="yourname/pokemon-card-tracker">
+  <div class="panel">
+    <p class="panel-label">Check a card</p>
+    <div class="trigger-row">
+      <input type="text" id="searchInput" placeholder="Card name, e.g. Charizard ex" autocomplete="off">
+      <button class="btn-primary" id="checkNowBtn">Check now</button>
+      <button class="btn-ghost" id="refreshBtn" title="Reload saved data">↻</button>
+      <button class="btn-ghost" id="settingsToggle" title="Connect your repo">⚙</button>
     </div>
-    <div>
-      <label for="tokenInput">Personal access token (Actions: write)</label>
-      <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx">
+
+    <div class="settings" id="settingsPanel">
+      <div>
+        <label for="repoInput">GitHub repo (owner/name)</label>
+        <input type="text" id="repoInput" placeholder="yourname/pokemon-card-tracker">
+      </div>
+      <div>
+        <label for="tokenInput">Personal access token (Actions: write)</label>
+        <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx">
+      </div>
+      <p class="hint">Used only to trigger the "Check card prices" workflow directly from your browser. Kept in memory for this page visit only — nothing is saved or sent anywhere except GitHub's API.</p>
     </div>
-    <p class="hint">Used only to trigger the "Check card prices" workflow directly from your browser. Kept in memory for this page visit only — nothing is saved or sent anywhere except GitHub's API.</p>
+
+    <div class="status-line" id="statusLine"></div>
+    <div class="progress-track" id="progressTrack"><div class="progress-fill" id="progressFill"></div></div>
   </div>
 
-  <div class="status-line" id="statusLine"></div>
-  <div class="progress-track" id="progressTrack">
-    <div class="progress-fill" id="progressFill"></div>
-  </div>
-
-  <div class="results" id="results">
-    <p class="empty-state">Type a card name above to see its saved prices.</p>
+  <div class="browse-panel">
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="cardmarket">Cardmarket</button>
+      <button class="tab" data-tab="vinted">Vinted</button>
+      <button class="tab" data-tab="favorites">★ Favorites <span class="count" id="favCount">(0)</span></button>
+    </div>
+    <input type="text" class="browse-search" id="browseInput" placeholder="Search saved Cardmarket prices…" autocomplete="off">
+    <div class="results" id="results">
+      <p class="empty-state">Type a card name to browse saved Cardmarket prices.</p>
+    </div>
   </div>
 
 </div>
@@ -369,46 +441,146 @@
     return '€' + Number(v).toFixed(2);
   }
 
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
   let dealsData = {};
+  let activeTab = 'cardmarket';
+
+  // Favorites: kept in memory for this preview environment. On your real
+  // deployed site, swap these two lines for a localStorage-backed version
+  // (see README) so favorites survive a page reload.
+  let favorites = { cardmarket: {}, vinted: {} };
+
+  // Rebuilt on every render so favorite buttons can look up full item data
+  // by id without embedding large JSON blobs into the HTML.
+  let cardmarketIndex = {};
+  let vintedIndex = {};
+
+  function getEntry(raw) {
+    // Backward-compatible across the schema's history:
+    // 1. oldest: a plain array of printings
+    // 2. mid: { match_type, checked_at, results }
+    // 3. current: { match_type, checked_at, cardmarket, vinted }
+    if (Array.isArray(raw)) {
+      const stamps = raw.map(c => c.checked_at).filter(Boolean).sort();
+      return { match_type: 'exact', checked_at: stamps.at(-1) || null, cardmarket: raw, vinted: null };
+    }
+    if (raw && raw.results && !raw.cardmarket) {
+      return { match_type: raw.match_type, checked_at: raw.checked_at, cardmarket: raw.results, vinted: null };
+    }
+    return raw || { match_type: 'none', checked_at: null, cardmarket: [], vinted: null };
+  }
 
   async function loadDeals(bustCache) {
     const url = 'data/deals.json' + (bustCache ? ('?t=' + Date.now()) : '');
     try {
       const res = await fetch(url);
       dealsData = await res.json();
-      const timestamps = Object.values(dealsData)
-        .flatMap(raw => getEntry(raw).results)
-        .map(c => c.checked_at)
-        .filter(Boolean);
+      const timestamps = Object.values(dealsData).map(raw => getEntry(raw).checked_at).filter(Boolean);
       const syncEl = document.getElementById('syncLine');
       if (timestamps.length) {
-        const latest = new Date(timestamps.sort().at(-1));
-        syncEl.textContent = 'Last synced ' + latest.toLocaleString();
+        syncEl.textContent = 'Last synced ' + new Date(timestamps.sort().at(-1)).toLocaleString();
       } else {
         syncEl.textContent = 'No saved data yet — run the bot at least once.';
       }
     } catch (e) {
       document.getElementById('syncLine').textContent = 'Could not load data/deals.json — check it exists next to this page.';
     }
-    renderResults(document.getElementById('searchInput').value);
+    renderActiveTab();
   }
 
-  function getEntry(raw) {
-    // Backward-compatible: old data was a plain array of printings.
-    // New data is { match_type, checked_at, results }.
-    if (Array.isArray(raw)) {
-      const stamps = raw.map(c => c.checked_at).filter(Boolean).sort();
-      return { match_type: 'exact', checked_at: stamps.at(-1) || null, results: raw };
+  // ---------- Tabs ----------
+
+  const TAB_PLACEHOLDERS = {
+    cardmarket: 'Search saved Cardmarket prices…',
+    vinted: 'Search saved Vinted listings…',
+    favorites: 'Filter your favorites… (leave blank to see all)',
+  };
+
+  document.getElementById('tabs').addEventListener('click', e => {
+    const btn = e.target.closest('.tab');
+    if (!btn) return;
+    activeTab = btn.dataset.tab;
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === btn));
+    const input = document.getElementById('browseInput');
+    input.placeholder = TAB_PLACEHOLDERS[activeTab];
+    input.value = '';
+    renderActiveTab();
+  });
+
+  document.getElementById('browseInput').addEventListener('input', () => renderActiveTab());
+
+  function renderActiveTab() {
+    const query = document.getElementById('browseInput').value;
+    if (activeTab === 'cardmarket') renderCardmarketResults(query);
+    else if (activeTab === 'vinted') renderVintedResults(query);
+    else renderFavorites(query);
+  }
+
+  // ---------- Favorites ----------
+
+  function updateFavCount() {
+    const n = Object.keys(favorites.cardmarket).length + Object.keys(favorites.vinted).length;
+    document.getElementById('favCount').textContent = `(${n})`;
+  }
+
+  function toggleFavorite(type, id) {
+    if (favorites[type][id]) {
+      delete favorites[type][id];
+    } else {
+      const data = type === 'cardmarket' ? cardmarketIndex[id] : vintedIndex[id];
+      if (data) favorites[type][id] = data;
     }
-    return raw || { match_type: 'none', checked_at: null, results: [] };
+    updateFavCount();
+    renderActiveTab();
   }
 
-  function renderResults(query) {
+  document.getElementById('results').addEventListener('click', e => {
+    const btn = e.target.closest('.fav-btn, .vinted-fav-btn');
+    if (!btn) return;
+    e.preventDefault();
+    toggleFavorite(btn.dataset.favType, btn.dataset.favId);
+  });
+
+  function renderFavorites(query) {
+    const container = document.getElementById('results');
+    query = query.trim().toLowerCase();
+
+    let cmFavs = Object.values(favorites.cardmarket);
+    let vtFavs = Object.values(favorites.vinted);
+
+    if (query) {
+      cmFavs = cmFavs.filter(c => (c.name || '').toLowerCase().includes(query));
+      vtFavs = vtFavs.filter(({ item }) => (item.title || '').toLowerCase().includes(query));
+    }
+
+    if (!cmFavs.length && !vtFavs.length) {
+      container.innerHTML = `<p class="empty-state">No favorites yet.<br>Tap the ★ on any card or listing to save it here.</p>`;
+      return;
+    }
+
+    let html = '';
+    if (cmFavs.length) {
+      cardmarketIndex = { ...cardmarketIndex, ...Object.fromEntries(cmFavs.map(c => [c.id, c])) };
+      html += `<h2 class="group-title">Cardmarket <span class="count">(${cmFavs.length})</span></h2>` + cmFavs.map(cardHtml).join('');
+    }
+    if (vtFavs.length) {
+      vintedIndex = { ...vintedIndex, ...Object.fromEntries(vtFavs.map(v => [v.item.id, v])) };
+      html += `<h2 class="group-title">Vinted <span class="count">(${vtFavs.length})</span></h2><div class="vinted-grid">${vtFavs.map(({ item, sourceName }) => vintedItemHtml(item, sourceName)).join('')}</div>`;
+    }
+    container.innerHTML = html;
+  }
+
+  // ---------- Cardmarket ----------
+
+  function renderCardmarketResults(query) {
     const container = document.getElementById('results');
     query = query.trim().toLowerCase();
 
     if (!query) {
-      container.innerHTML = '<p class="empty-state">Type a card name above to see its saved prices.</p>';
+      container.innerHTML = '<p class="empty-state">Type a card name to browse saved Cardmarket prices.</p>';
       return;
     }
 
@@ -417,35 +589,39 @@
       .filter(([name]) => name.toLowerCase().includes(query));
 
     if (!matches.length) {
-      container.innerHTML = `<p class="empty-state">No saved prices for &ldquo;${escapeHtml(query)}&rdquo; yet.<br>Press <strong>Check now</strong> to look it up live.<br><br><span style="font-size:11px;">Tip: search the card's official name (e.g. "Mewtwo"), not a nickname or set name &mdash; nicknames won't match.</span></p>`;
+      container.innerHTML = `<p class="empty-state">No saved prices for &ldquo;${escapeHtml(query)}&rdquo; yet.<br>Use <strong>Check now</strong> above to look it up live.<br><br><span style="font-size:12px;">Tip: search the card's official name (e.g. "Mewtwo"), not a nickname or set name — nicknames won't match.</span></p>`;
       return;
     }
 
     container.innerHTML = matches.map(([name, entry]) => {
-      const sorted = [...entry.results].sort((a, b) => (b.price_sell_avg || 0) - (a.price_sell_avg || 0));
+      const sorted = [...entry.cardmarket].sort((a, b) => (b.price_sell_avg || 0) - (a.price_sell_avg || 0));
+      cardmarketIndex = { ...cardmarketIndex, ...Object.fromEntries(sorted.map(c => [c.id, c])) };
 
+      let body;
       if (!sorted.length) {
-        return `<h2 class="group-title">${escapeHtml(name)}</h2><p class="empty-state" style="border-top:none;padding-top:0;">No cards found under this name yet. Try <strong>Check now</strong>, or search just the Pok&eacute;mon's name on its own.</p>`;
+        body = `<p class="empty-state" style="padding-top:0;">No cards found under this name yet. Try <strong>Check now</strong>, or search just the Pok&eacute;mon's name on its own.</p>`;
+      } else {
+        const broadNote = entry.match_type === 'broad'
+          ? `<p class="broad-note">Broad match — no exact hit for &ldquo;${escapeHtml(name)}&rdquo;, showing cards matching part of it instead.</p>`
+          : '';
+        body = broadNote + sorted.map(cardHtml).join('');
       }
 
-      const broadNote = entry.match_type === 'broad'
-        ? `<p style="font-family:var(--font-mono);font-size:11px;color:#B08A5F;margin:-6px 0 10px;">Broad match &mdash; no exact hit for &ldquo;${escapeHtml(name)}&rdquo;, showing cards matching part of it instead.</p>`
-        : '';
-
-      const cards = sorted.map(cardHtml).join('');
-      return `<h2 class="group-title">${escapeHtml(name)} <span style="font-family:var(--font-mono);font-size:13px;color:#8E9C97;">(${sorted.length} printing${sorted.length > 1 ? 's' : ''})</span></h2>${broadNote}${cards}`;
+      return `<h2 class="group-title">${escapeHtml(name)} <span class="count">(${sorted.length} printing${sorted.length === 1 ? '' : 's'})</span></h2>${body}`;
     }).join('');
   }
 
   function cardHtml(c) {
     const color = rarityColor(c.rarity);
+    const isFav = !!favorites.cardmarket[c.id];
     return `
-      <div class="card">
-        <div class="rarity-tab" style="background:${color}"></div>
-        <div class="punch"></div>
+      <div class="card" style="border-left-color:${color}">
         ${c.image ? `<img class="card-thumb" src="${c.image}" alt="${escapeHtml(c.name || '')}" loading="lazy">` : ''}
         <div class="card-info">
-          <p class="card-name">${escapeHtml(c.name || 'Unknown')}</p>
+          <div class="card-top-row">
+            <p class="card-name">${escapeHtml(c.name || 'Unknown')}</p>
+            <button class="fav-btn ${isFav ? 'is-fav' : ''}" data-fav-type="cardmarket" data-fav-id="${escapeHtml(String(c.id))}" title="${isFav ? 'Remove from favorites' : 'Add to favorites'}">${isFav ? '★' : '☆'}</button>
+          </div>
           <p class="card-meta">${escapeHtml(c.expansion || '')} · #${escapeHtml(c.number || '?')}
             &nbsp;<span class="rarity-label" style="background:${color}">${escapeHtml(c.rarity || 'Unknown')}</span>
           </p>
@@ -455,14 +631,63 @@
             <div><div class="k">Trend</div><div class="v">${money(c.price_trend)}</div></div>
             <div><div class="k">30d avg</div><div class="v">${money(c.price_avg_30d)}</div></div>
           </div>
-          <p class="card-footer">Cardmarket data as of ${escapeHtml(c.cardmarket_updated_at || '—')} · <a href="${c.url || '#'}" target="_blank" rel="noopener" style="color:var(--sepia);">view on Cardmarket ↗</a></p>
+          <p class="card-footer">Cardmarket data as of ${escapeHtml(c.cardmarket_updated_at || '—')} · <a href="${c.url || '#'}" target="_blank" rel="noopener">view on Cardmarket ↗</a></p>
         </div>
       </div>`;
   }
 
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  // ---------- Vinted ----------
+
+  function flattenVintedItems() {
+    const flat = [];
+    for (const [name, raw] of Object.entries(dealsData)) {
+      const entry = getEntry(raw);
+      if (entry.vinted && entry.vinted.ok) {
+        for (const item of entry.vinted.items) flat.push({ item, sourceName: name });
+      }
+    }
+    return flat;
   }
+
+  function renderVintedResults(query) {
+    const container = document.getElementById('results');
+    query = query.trim().toLowerCase();
+
+    if (!query) {
+      container.innerHTML = '<p class="empty-state">Type a card name to browse saved Vinted listings.</p>';
+      return;
+    }
+
+    const flat = flattenVintedItems();
+    const matches = flat.filter(({ item, sourceName }) =>
+      (item.title || '').toLowerCase().includes(query) || sourceName.toLowerCase().includes(query)
+    );
+
+    if (!matches.length) {
+      container.innerHTML = `<p class="empty-state">No saved Vinted listings match &ldquo;${escapeHtml(query)}&rdquo; yet.<br>Use <strong>Check now</strong> above — Vinted results are saved alongside Cardmarket's.</p>`;
+      return;
+    }
+
+    vintedIndex = { ...vintedIndex, ...Object.fromEntries(matches.map(m => [m.item.id, m])) };
+
+    container.innerHTML = `
+      <p class="list-note">${matches.length} listing${matches.length === 1 ? '' : 's'} — text match only, eyeball before trusting</p>
+      <div class="vinted-grid">${matches.map(({ item, sourceName }) => vintedItemHtml(item, sourceName)).join('')}</div>`;
+  }
+
+  function vintedItemHtml(item, sourceName) {
+    const isFav = !!favorites.vinted[item.id];
+    return `
+      <a class="vinted-item" href="${item.url || '#'}" target="_blank" rel="noopener">
+        <button class="vinted-fav-btn ${isFav ? 'is-fav' : ''}" data-fav-type="vinted" data-fav-id="${escapeHtml(String(item.id))}" title="${isFav ? 'Remove from favorites' : 'Add to favorites'}">${isFav ? '★' : '☆'}</button>
+        ${item.photo ? `<img src="${item.photo}" alt="">` : ''}
+        <span class="vinted-title">${escapeHtml(item.title || 'Untitled listing')}</span>
+        <span class="vinted-price">${item.price ? money(item.price) : '—'}</span>
+        <span class="vinted-source-tag">via "${escapeHtml(sourceName)}"</span>
+      </a>`;
+  }
+
+  // ---------- Trigger / check now ----------
 
   function showStatus(msg, ok) {
     const el = document.getElementById('statusLine');
@@ -470,23 +695,7 @@
     el.className = 'status-line show ' + (ok ? 'status-ok' : 'status-err');
   }
 
-  document.getElementById('searchInput').addEventListener('input', e => {
-    stopPolling();
-    hideProgress();
-    renderResults(e.target.value);
-  });
-
-  document.getElementById('refreshBtn').addEventListener('click', () => {
-    stopPolling();
-    hideProgress();
-    loadDeals(true);
-  });
-
-  document.getElementById('settingsToggle').addEventListener('click', () => {
-    document.getElementById('settingsPanel').classList.toggle('open');
-  });
-
-  const ESTIMATED_RUN_MS = 25000; // typical observed run time (your logs: 14-26s)
+  const ESTIMATED_RUN_MS = 25000;
 
   function setProgress(percent, state) {
     const track = document.getElementById('progressTrack');
@@ -505,10 +714,22 @@
   }
 
   let pollTimer = null;
+  function stopPolling() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } }
 
-  function stopPolling() {
-    if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
-  }
+  document.getElementById('searchInput').addEventListener('input', () => {
+    stopPolling();
+    hideProgress();
+  });
+
+  document.getElementById('refreshBtn').addEventListener('click', () => {
+    stopPolling();
+    hideProgress();
+    loadDeals(true);
+  });
+
+  document.getElementById('settingsToggle').addEventListener('click', () => {
+    document.getElementById('settingsPanel').classList.toggle('open');
+  });
 
   document.getElementById('checkNowBtn').addEventListener('click', async () => {
     const cardName = document.getElementById('searchInput').value.trim();
@@ -559,14 +780,13 @@
 
   function startPolling(cardName, priorTimestamp) {
     const startedAt = Date.now();
-    const maxMs = 120000; // give up after 2 minutes
-    let elapsed = 0;
+    const maxMs = 120000;
 
     showStatus(`Checking "${cardName}"… (0s)`, true);
     setProgress(2, null);
 
     pollTimer = setInterval(async () => {
-      elapsed = Math.round((Date.now() - startedAt) / 1000);
+      const elapsed = Math.round((Date.now() - startedAt) / 1000);
 
       if (Date.now() - startedAt > maxMs) {
         stopPolling();
@@ -583,13 +803,13 @@
         showStatus(`Done — "${cardName}" updated just now.`, true);
         setProgress(100, 'done');
         setTimeout(hideProgress, 2500);
-        document.getElementById('searchInput').value = cardName;
-        renderResults(cardName);
+        if (activeTab !== 'favorites') {
+          document.getElementById('browseInput').value = cardName;
+          renderActiveTab();
+        }
       } else {
         showStatus(`Checking "${cardName}"… (${elapsed}s)`, true);
-        // Creep toward, but never claim, 100% until we've actually confirmed completion.
-        const pct = Math.min(94, (Date.now() - startedAt) / ESTIMATED_RUN_MS * 100);
-        setProgress(pct, null);
+        setProgress(Math.min(94, (Date.now() - startedAt) / ESTIMATED_RUN_MS * 100), null);
       }
     }, 4000);
   }

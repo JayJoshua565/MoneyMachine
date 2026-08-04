@@ -42,6 +42,51 @@ cat ../data/deals.json
 - `data/tracked_cards.json` — cards refreshed automatically on schedule. Add more by editing this list.
 - `data/deals.json` — the bot's latest results per card (this is what a future frontend will read from).
 
+## Vinted listings (best-effort, unofficial)
+
+The bot also searches Vinted's internal search endpoint for listings
+matching your card name. Read this before relying on it:
+
+- Vinted has **no official public API** for this. We call the same
+  endpoint their own website uses, with a normal browser User-Agent
+  and nothing more -- no proxies, no fingerprint spoofing, no bot-detection
+  bypass tooling.
+- Vinted actively runs bot detection (Datadome) on this endpoint, so this
+  **will sometimes get blocked** and return no results. That's expected,
+  not a bug -- the site checks for that (`vinted.ok === false`) and shows
+  a "couldn't reach Vinted this time" message with a direct link to
+  search Vinted yourself instead.
+- Results are a **plain text match**, not tied to a specific card printing
+  the way Cardmarket's catalog is. Always eyeball the listing photo/title
+  before trusting it's the exact card you're after.
+- Defaults to `vinted.nl`. Change the domain via the `VINTED_DOMAIN`
+  environment variable (e.g. `fr`, `de`, `co.uk`) if you shop a different
+  Vinted marketplace.
+
+## Favorites
+
+Tap the star on any Cardmarket card or Vinted listing to save it to the
+Favorites tab. As shipped, favorites reset if you reload the page — that's
+intentional for compatibility with preview environments. To make them
+persist on your real deployed site, replace this line in `index.html`:
+
+```js
+let favorites = { cardmarket: {}, vinted: {} };
+```
+
+with:
+
+```js
+let favorites = JSON.parse(localStorage.getItem('favorites') || '{"cardmarket":{},"vinted":{}}');
+```
+
+and add this line inside `updateFavCount()`, right after the count is
+updated:
+
+```js
+localStorage.setItem('favorites', JSON.stringify(favorites));
+```
+
 ## What's next
 Once this is fetching real data reliably, the next step is a small
 GitHub Pages search page that reads `data/deals.json` (instant, free) plus

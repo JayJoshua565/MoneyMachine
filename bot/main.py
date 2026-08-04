@@ -8,11 +8,13 @@ Usage:
 """
 
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 from pokemon_tcg_client import PokemonTcgClient
+from vinted_client import VintedClient
 
 ROOT = Path(__file__).resolve().parent.parent
 DEALS_FILE = ROOT / "data" / "deals.json"
@@ -32,7 +34,7 @@ def save_json(path, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def lookup_card(client, name):
+def lookup_cardmarket(client, name):
     """Search for a card name, pull out its Cardmarket pricing block."""
     matches, match_type = client.find_cards(name)
     results = []
@@ -55,18 +57,28 @@ def lookup_card(client, name):
             "price_low_ex_plus": prices.get("lowPriceExPlus"),
             "price_trend": prices.get("trendPrice"),
             "price_avg_30d": prices.get("avg30"),
-            "checked_at": datetime.now(timezone.utc).isoformat(),
         })
+
+    return match_type, results
+
+
+def lookup_card(cm_client, vinted_client, name):
+    """Look up a card on both Cardmarket (official pricing) and Vinted
+    (best-effort listings search -- see vinted_client.py for caveats)."""
+    match_type, cardmarket_results = lookup_cardmarket(cm_client, name)
+    vinted_result = vinted_client.search(name)
 
     return {
         "match_type": match_type,
         "checked_at": datetime.now(timezone.utc).isoformat(),
-        "results": results,
+        "cardmarket": cardmarket_results,
+        "vinted": vinted_result,
     }
 
 
 def main():
-    client = PokemonTcgClient()
+    cm_client = PokemonTcgClient()
+    vinted_client = VintedClient(domain=os.environ.get("VINTED_DOMAIN", "nl"))
     deals = load_json(DEALS_FILE, {})
 
     if len(sys.argv) > 1:
@@ -80,7 +92,15 @@ def main():
     for name in card_names:
         print(f"Looking up: {name}")
         try:
-            deals[name] = lookup_card(client, name)
+            deals[name] = lookup_card(cm_client, vinted_client, name)
+            vinted_ok = deals[name]["vinted"]["ok"]
+            vinted_count = len(deals[name]["vinted"]["items"])
+            filtered = deals[name]["vinted"].get("filtered_non_english", 0)
+            print(f"  Cardmarket: {len(deals[name]['cardmarket'])} printing(s)")
+            vinted_msg = f"ok, {vinted_count} listing(s)" if vinted_ok else "blocked/unavailable this run"
+            if vinted_ok and filtered:
+                vinted_msg += f" ({filtered} non-English filtered out)"
+            print(f"  Vinted: {vinted_msg}")
         except Exception as e:
             print(f"  failed: {e}")
 

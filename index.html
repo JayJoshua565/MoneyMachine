@@ -119,6 +119,22 @@
 
   .trigger-row input[type="text"] { flex: 1; min-width: 0; }
 
+  .platform-row { display: flex; gap: 6px; margin-top: 10px; }
+  .platform-pill {
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-weight: 600;
+    background: transparent;
+    color: #7C8985;
+    border: 1px solid #3A4644;
+    border-radius: 999px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .platform-pill:hover { border-color: var(--sepia-soft); color: var(--paper); }
+  .platform-pill.active { background: rgba(139,94,52,0.25); border-color: var(--sepia-soft); color: var(--paper); }
+
   button {
     font-family: var(--font-body);
     font-weight: 600;
@@ -388,6 +404,12 @@
       <button class="btn-primary" id="checkNowBtn">Check now</button>
       <button class="btn-ghost" id="refreshBtn" title="Reload saved data">↻</button>
       <button class="btn-ghost" id="settingsToggle" title="Connect your repo">⚙</button>
+    </div>
+
+    <div class="platform-row" id="platformRow">
+      <button class="platform-pill active" data-platform="both">Both</button>
+      <button class="platform-pill" data-platform="cardmarket">Cardmarket only</button>
+      <button class="platform-pill" data-platform="vinted">Vinted only</button>
     </div>
 
     <div class="settings" id="settingsPanel">
@@ -731,6 +753,15 @@
     document.getElementById('settingsPanel').classList.toggle('open');
   });
 
+  let checkPlatform = 'both';
+
+  document.getElementById('platformRow').addEventListener('click', e => {
+    const btn = e.target.closest('.platform-pill');
+    if (!btn) return;
+    checkPlatform = btn.dataset.platform;
+    document.querySelectorAll('.platform-pill').forEach(p => p.classList.toggle('active', p === btn));
+  });
+
   document.getElementById('checkNowBtn').addEventListener('click', async () => {
     const cardName = document.getElementById('searchInput').value.trim();
     const repo = document.getElementById('repoInput').value.trim();
@@ -758,7 +789,7 @@
           'Accept': 'application/vnd.github+json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ ref: 'main', inputs: { card_name: cardName } })
+        body: JSON.stringify({ ref: 'main', inputs: { card_name: cardName, platform: checkPlatform } })
       });
 
       if (res.status === 204) {
@@ -778,9 +809,24 @@
     }
   });
 
+  async function tryFetchRaw(repo) {
+    // Reflects the latest commit almost immediately, unlike the live Pages
+    // site which needs its own separate rebuild after every push. Used
+    // only during polling, as a speed optimization -- falls back to the
+    // normal Pages fetch (loadDeals) if this doesn't work for any reason.
+    try {
+      const res = await fetch(`https://raw.githubusercontent.com/${repo}/main/data/deals.json?t=${Date.now()}`);
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (e) {
+      return null;
+    }
+  }
+
   function startPolling(cardName, priorTimestamp) {
     const startedAt = Date.now();
     const maxMs = 120000;
+    const repo = document.getElementById('repoInput').value.trim();
 
     showStatus(`Checking "${cardName}"… (0s)`, true);
     setProgress(2, null);
@@ -795,7 +841,12 @@
         return;
       }
 
-      await loadDeals(true);
+      const raw = repo ? await tryFetchRaw(repo) : null;
+      if (raw) {
+        dealsData = raw;
+      } else {
+        await loadDeals(true);
+      }
       const entry = getEntry(dealsData[cardName]);
 
       if (entry.checked_at && entry.checked_at !== priorTimestamp) {
@@ -803,6 +854,7 @@
         showStatus(`Done — "${cardName}" updated just now.`, true);
         setProgress(100, 'done');
         setTimeout(hideProgress, 2500);
+        await loadDeals(true); // one full reload so sync line + Pages cache line up
         if (activeTab !== 'favorites') {
           document.getElementById('browseInput').value = cardName;
           renderActiveTab();

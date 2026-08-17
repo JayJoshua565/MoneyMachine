@@ -10,6 +10,15 @@ on:
         description: "Look up one specific card right now (leave blank to refresh all tracked cards)"
         required: false
         default: ""
+      platform:
+        description: "Which source(s) to check"
+        required: false
+        type: choice
+        default: "both"
+        options:
+          - both
+          - cardmarket
+          - vinted
 
 permissions:
   contents: write
@@ -32,6 +41,7 @@ jobs:
       - name: Run bot
         env:
           POKEMONTCG_API_KEY: ${{ secrets.POKEMONTCG_API_KEY }}
+          CHECK_PLATFORM: ${{ github.event.inputs.platform }}
         run: |
           cd bot
           if [ -n "${{ github.event.inputs.card_name }}" ]; then

@@ -65,11 +65,23 @@ def lookup_cardmarket(client, name):
     return match_type, results
 
 
-def lookup_card(cm_client, vinted_client, name):
-    """Look up a card on both Cardmarket (official pricing) and Vinted
-    (best-effort listings search -- see vinted_client.py for caveats)."""
-    match_type, cardmarket_results = lookup_cardmarket(cm_client, name)
-    vinted_result = vinted_client.search(name)
+def lookup_card(cm_client, vinted_client, name, platform, existing=None):
+    """Look up a card on Cardmarket and/or Vinted, depending on `platform`
+    ("both", "cardmarket", or "vinted"). If a source is skipped, its
+    previously-saved data (if any) is preserved rather than wiped."""
+    existing = existing or {}
+    if isinstance(existing, list):
+        existing = {"match_type": "exact", "cardmarket": existing, "vinted": None}
+
+    match_type = existing.get("match_type", "none")
+    cardmarket_results = existing.get("cardmarket", existing.get("results", []))
+    vinted_result = existing.get("vinted")
+
+    if platform in ("both", "cardmarket"):
+        match_type, cardmarket_results = lookup_cardmarket(cm_client, name)
+
+    if platform in ("both", "vinted"):
+        vinted_result = vinted_client.search(name)
 
     return {
         "match_type": match_type,
@@ -83,6 +95,9 @@ def main():
     cm_client = PokemonTcgClient()
     vinted_client = VintedClient(domain=os.environ.get("VINTED_DOMAIN", "nl"))
     deals = load_json(DEALS_FILE, {})
+    platform = os.environ.get("CHECK_PLATFORM", "both")
+    if platform not in ("both", "cardmarket", "vinted"):
+        platform = "both"
 
     if len(sys.argv) > 1:
         # Ad-hoc single-card lookup (e.g. triggered by the "check now" button)
@@ -92,18 +107,22 @@ def main():
         tracked = load_json(TRACKED_FILE, [])
         card_names = [c["name"] for c in tracked]
 
+    print(f"Platform: {platform}")
+
     for name in card_names:
         print(f"Looking up: {name}")
         try:
-            deals[name] = lookup_card(cm_client, vinted_client, name)
-            vinted_ok = deals[name]["vinted"]["ok"]
-            vinted_count = len(deals[name]["vinted"]["items"])
-            filtered = deals[name]["vinted"].get("filtered_non_english", 0)
+            deals[name] = lookup_card(cm_client, vinted_client, name, platform, deals.get(name))
             print(f"  Cardmarket: {len(deals[name]['cardmarket'])} printing(s)")
-            vinted_msg = f"ok, {vinted_count} listing(s)" if vinted_ok else "blocked/unavailable this run"
-            if vinted_ok and filtered:
-                vinted_msg += f" ({filtered} non-English filtered out)"
-            print(f"  Vinted: {vinted_msg}")
+            vinted = deals[name]["vinted"]
+            if vinted is None:
+                print("  Vinted: not checked (no prior data, platform set to cardmarket-only)")
+            else:
+                vinted_msg = f"ok, {len(vinted['items'])} listing(s)" if vinted["ok"] else "blocked/unavailable this run"
+                filtered = vinted.get("filtered_non_english", 0)
+                if vinted["ok"] and filtered:
+                    vinted_msg += f" ({filtered} non-English filtered out)"
+                print(f"  Vinted: {vinted_msg}")
         except Exception as e:
             print(f"  failed: {e}")
 

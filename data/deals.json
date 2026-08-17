@@ -1,7 +1,7 @@
 {
   "Pikachu": {
     "match_type": "exact",
-    "checked_at": "2026-08-17T19:49:24.298939+00:00",
+    "checked_at": "2026-08-17T19:50:22.712223+00:00",
     "cardmarket": [
       {
         "id": "basep-1",
@@ -2664,6 +2664,36 @@
       "status_code": 200,
       "items": [
         {
+          "id": 9680697934,
+          "title": "Sac à dos pikachu",
+          "price": "1.8",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9680697934-sac-a-dos-pikachu",
+          "photo": "https://images1.vinted.net/t/02_008e0_nhT1gJpxgghJuhvPmQMMHXGJ/f800/1786897643.jpeg?s=3078f7c9afb74755efd61441aaae5ef870bf6fb1",
+          "brand": "Pokémon",
+          "seller": "celine13460"
+        },
+        {
+          "id": 8647913952,
+          "title": "pikachu knuffel",
+          "price": "3.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/8647913952-pikachu-knuffel",
+          "photo": "https://images1.vinted.net/t/03_00953_vSfgSPtT2s2Wod8CnJQ8HghJ/f800/1776125542.jpeg?s=dff0922f01c2c751f6dcf021e17b3647aa645b78",
+          "brand": "",
+          "seller": "hannas445"
+        },
+        {
+          "id": 9677836868,
+          "title": "Pikachu knuffel",
+          "price": "2.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9677836868-pikachu-knuffel",
+          "photo": "https://images1.vinted.net/t/02_01dce_bHbCg1n55ynD915ELPFaV6eF/f800/1786885738.jpeg?s=e4a44a5ff8e357e13052c9d085d645cbfe9d8ab1",
+          "brand": "Pokémon",
+          "seller": "marcella.3"
+        },
+        {
           "id": 9176049690,
           "title": "Pikachu with grey felt hat Pokemon kaart ap 9.0",
           "price": "675.0",
@@ -2672,6 +2702,46 @@
           "photo": "https://images1.vinted.net/t/05_01e5a_KPUWH5UbvL71xnDhTbd19GMZ/f800/1781468206.jpeg?s=67b161d2010c545ff0f8ea3d5dd6da0a001475ff",
           "brand": "Pokémon",
           "seller": "aapjedouma"
+        },
+        {
+          "id": 8896174788,
+          "title": "Leuk Pikachu spijkerpak 98",
+          "price": "5.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/8896174788-leuk-pikachu-spijkerpak-98",
+          "photo": "https://images1.vinted.net/t/06_00e91_5zhm78fkdthDCJpBm6HYuyfT/f800/1778613150.jpeg?s=7c4070e983e3be8c70ba6df4e417d19ae9070f09",
+          "brand": "H&M",
+          "seller": "dominique0512"
+        },
+        {
+          "id": 8893537685,
+          "title": "Super zachte Pikachu Onesie (Pokémon) Maat L",
+          "price": "10.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/8893537685-super-zachte-pikachu-onesie-pokemon-maat-l",
+          "photo": "https://images1.vinted.net/t/05_00198_F1C4fFgc5dgDisNuz6E9gJQp/f800/1778597525.jpeg?s=0f179bc081ec7b633d4d40d2dfd7851858479bf7",
+          "brand": "merkloos",
+          "seller": "vinsan84"
+        },
+        {
+          "id": 9194347920,
+          "title": "Pikachu t shirt met legging",
+          "price": "4.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9194347920-pikachu-t-shirt-met-legging",
+          "photo": "https://images1.vinted.net/t/04_009c7_MP5BN7FgePmbKqZ8yx96zn1v/f800/1781688201.jpeg?s=54db420f1bf780b794f870a096d43502891f1a9e",
+          "brand": "Takko Fashion",
+          "seller": "lientjee33"
+        },
+        {
+          "id": 9690439936,
+          "title": "Pikachu 54/214",
+          "price": "2.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9690439936-pikachu-54214",
+          "photo": "https://images1.vinted.net/t/06_00eff_CFN45zaZDweUUBttSGxXK83U/f800/1786981066.jpeg?s=dedeb7fe1ad125c44c113ab40c531ae40cdf63ab",
+          "brand": "Pokémon",
+          "seller": "waterpoort1981"
         },
         {
           "id": 9627766875,
@@ -2684,26 +2754,6 @@
           "seller": "yutaseller"
         },
         {
-          "id": 9685861831,
-          "title": "Pokémon Pikachu-Jacke",
-          "price": "12.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9685861831-pokemon-pikachu-jacke",
-          "photo": "https://images1.vinted.net/t/01_00cb5_yUkCd4f486JuCzjDM5U9KiaF/f800/1786957763.jpeg?s=5fd72acf86a8ae30b3ae2c52f866ed003e4bf417",
-          "brand": "Pokémon",
-          "seller": "caramello98"
-        },
-        {
-          "id": 9672844169,
-          "title": "Pokemon binder collectie",
-          "price": "500.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9672844169-pokemon-binder-collectie",
-          "photo": "https://images1.vinted.net/t/02_0102c_U23hV7hMzrgtSqsZk1hjGzd7/f800/1786829747.jpeg?s=65acc3b9f2dc9fd7887beabb22853d65dfbece36",
-          "brand": "Pokémon",
-          "seller": "lehmanntcg"
-        },
-        {
           "id": 9504681266,
           "title": "Pikachu first edition neo genesis",
           "price": "23.0",
@@ -2712,16 +2762,6 @@
           "photo": "https://images1.vinted.net/t/06_00b68_Ng4VA5t4zLw7TexTBW53bfbF/f800/1785156818.jpeg?s=3c3628ce84a9af0efbba1ff35c398c96eb44ac0b",
           "brand": "Pokémon",
           "seller": "vonj90"
-        },
-        {
-          "id": 8647913952,
-          "title": "pikachu knuffel",
-          "price": "3.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/8647913952-pikachu-knuffel",
-          "photo": "https://images1.vinted.net/t/03_00953_vSfgSPtT2s2Wod8CnJQ8HghJ/f800/1776125542.jpeg?s=dff0922f01c2c751f6dcf021e17b3647aa645b78",
-          "brand": "",
-          "seller": "hannas445"
         },
         {
           "id": 9687375914,
@@ -2744,6 +2784,36 @@
           "seller": "ericoo89"
         },
         {
+          "id": 9511298157,
+          "title": "Super leuk Pikachu kussen",
+          "price": "9.9",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9511298157-super-leuk-pikachu-kussen",
+          "photo": "https://images1.vinted.net/t/04_00648_qqAmRXRDabEnGkM6qwZEM8vj/f800/1785227009.jpeg?s=10aee5dd5de2584f0e38e183aefb4826a1f39dc0",
+          "brand": "Pokémon",
+          "seller": "tanteannie1971"
+        },
+        {
+          "id": 9683119781,
+          "title": "Pikachu Onesi, Kimu mt M/L",
+          "price": "5.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9683119781-pikachu-onesi-kimu-mt-ml",
+          "photo": "https://images1.vinted.net/t/03_00f37_Xn5vUaRpaojzvigKenEvAawn/f800/1786909870.jpeg?s=00561af7e5f35f519f359e6a9853c065f5fc19f0",
+          "brand": "Kimu",
+          "seller": "lilaatje100"
+        },
+        {
+          "id": 9430084692,
+          "title": "Trui met pikachu",
+          "price": "3.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9430084692-trui-met-pikachu",
+          "photo": "https://images1.vinted.net/t/01_00bcb_tq42ukvX3bbAMzEdkZamsAsQ/f800/1784395431.jpeg?s=1ad1eecf294d5cbe1c4f871cb1357b4f610b18d5",
+          "brand": "Primark",
+          "seller": "patje240290"
+        },
+        {
           "id": 9672877868,
           "title": "Peluche Pikachu dracaufeu",
           "price": "11.0",
@@ -2752,16 +2822,6 @@
           "photo": "https://images1.vinted.net/t/05_0237c_SR9Z7dv8oRw1mrtvA5vaDYyb/f800/1786830215.jpeg?s=4feed8173a487ea9205942638b84f2594da8880d",
           "brand": "Pokémon",
           "seller": "luulu67"
-        },
-        {
-          "id": 9681822819,
-          "title": "Pikachu binder",
-          "price": "3.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9681822819-pikachu-binder",
-          "photo": "https://images1.vinted.net/t/03_01242_YspXPZM8qeQKJye85qJ7NgNC/f800/1786902680.jpeg?s=b811cb9a818f8f496f3521c5c2ae0a86cce216e5",
-          "brand": "Pokémon",
-          "seller": "dewilarissa9"
         },
         {
           "id": 9667510193,
@@ -2784,67 +2844,17 @@
           "seller": "cinmon3"
         },
         {
-          "id": 9654743624,
-          "title": "Pokemon Center Sleeves Pikachu",
-          "price": "10.0",
+          "id": 7405931961,
+          "title": "Pikachu",
+          "price": "2.0",
           "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9654743624-pokemon-center-sleeves-pikachu",
-          "photo": "https://images1.vinted.net/t/02_0269b_M9GFExv4t9MFPn4RNFoLANyF/f800/1786644013.jpeg?s=f6ea16359d05d22894c57c0d28f2c5269e5e31e2",
-          "brand": "Pokémon",
-          "seller": "lalinetan"
-        },
-        {
-          "id": 9487612682,
-          "title": "Pull sans manches Pokémon Pikachu don't call me Jennyfer S",
-          "price": "4.7",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9487612682-pull-sans-manches-pokemon-pikachu-dont-call-me-jennyfer-s",
-          "photo": "https://images1.vinted.net/t/06_00b52_SHddEMGRmmGxdjVW6mEp7H3K/f800/1784991320.jpeg?s=082d7e8a553f497a667a8c68b508da1dff5d5cb5",
-          "brand": "Pokémon",
-          "seller": "anaislebellego"
-        },
-        {
-          "id": 9511298157,
-          "title": "Super leuk Pikachu kussen",
-          "price": "9.9",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9511298157-super-leuk-pikachu-kussen",
-          "photo": "https://images1.vinted.net/t/04_00648_qqAmRXRDabEnGkM6qwZEM8vj/f800/1785227009.jpeg?s=10aee5dd5de2584f0e38e183aefb4826a1f39dc0",
-          "brand": "Pokémon",
-          "seller": "tanteannie1971"
-        },
-        {
-          "id": 9683945349,
-          "title": "Pikachu travestito Pokémon",
-          "price": "13.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9683945349-pikachu-travestito-pokemon",
-          "photo": "https://images1.vinted.net/t/05_01b0a_DpmNjP9h5gbemHy3nKP8S6U6/f800/1786917384.jpeg?s=75f7948e4df2b517c46ba2a856283ffbfed18cbe",
-          "brand": "Pokémon",
-          "seller": "game-and-fun"
-        },
-        {
-          "id": 9680418190,
-          "title": "Nintendo Game boy Color viola con custodia Pokémon Pikachu",
-          "price": "120.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9680418190-nintendo-game-boy-color-viola-con-custodia-pokemon-pikachu",
-          "photo": "https://images1.vinted.net/t/06_01ec4_piiPqZFoo21gxdFFBr2A72PB/f800/1786896476.jpeg?s=150f88cfe83566db264ec639a7715bc2bd91e6b3",
-          "brand": "Nintendo",
-          "seller": "charlielotty92"
-        },
-        {
-          "id": 9067553687,
-          "title": "Pokémon Pikachu onesie maat 104",
-          "price": "5.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9067553687-pokemon-pikachu-onesie-maat-104",
-          "photo": "https://images1.vinted.net/t/06_024d7_jiU7UuRBbqqFVC6nTUsvP2s1/f800/1784717423.jpeg?s=a75452aa22d589a5a388df1dc52712313914fad0",
-          "brand": "H&M",
-          "seller": "cindyspijkenisse"
+          "url": "https://www.vinted.nl/items/7405931961-pikachu",
+          "photo": "https://images1.vinted.net/t/03_00cac_UohZvheLHH6MuGH52KVaNLhQ/f800/1761424834.jpeg?s=103d3b73aa59ac5948546bbefd1a24287c01e4dd",
+          "brand": "",
+          "seller": "jokeb2"
         }
       ],
-      "filtered_non_english": 2
+      "filtered_non_english": 1
     }
   }
 }

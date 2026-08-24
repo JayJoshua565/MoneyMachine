@@ -2859,7 +2859,7 @@
   },
   "Charizard ex": {
     "match_type": "exact",
-    "checked_at": "2026-08-24T02:53:39.334969+00:00",
+    "checked_at": "2026-08-24T10:25:57.104546+00:00",
     "cardmarket": [
       {
         "id": "ex6-105",
@@ -3077,24 +3077,24 @@
       "status_code": 200,
       "items": [
         {
-          "id": 9538204061,
-          "title": "Pokemon Charizard Ex",
-          "price": "95.0",
+          "id": 9759573162,
+          "title": "Mega Charizard X ex Ultra-Premium Collection (UPC)",
+          "price": "8.5",
           "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9538204061-pokemon-charizard-ex",
-          "photo": "https://images1.vinted.net/t/04_00634_KjvHUByXeS1QimK1iiDTF3NU/f800/1785504075.jpeg?s=f382e7c05e66480e1f2ef0aefebd4ace7b8ae6ff",
+          "url": "https://www.vinted.nl/items/9759573162-mega-charizard-x-ex-ultra-premium-collection-upc",
+          "photo": "https://images1.vinted.net/t/06_00350_cs6B5SaGvLKp2ngnA9MVd6WF/f800/1787552846.jpeg?s=6741ccf914b863c2c1275ba764eb798fd93575bf",
           "brand": "Pokémon",
-          "seller": "niels282"
+          "seller": "pascaljb"
         },
         {
-          "id": 9734581469,
-          "title": "Pokémon Charizard ex 228/197 Ossidiana Fiamme – Teracristal – ITA",
-          "price": "29.0",
+          "id": 9760671411,
+          "title": "M Charizard-EX 69/106",
+          "price": "79.99",
           "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9734581469-pokemon-charizard-ex-228197-ossidiana-fiamme-teracristal-ita",
-          "photo": "https://images1.vinted.net/t/05_002ec_Vio3W82FnLqVauY7jtmUV6fE/f800/1787343921.jpeg?s=a053595d62b2fc2ae84ada8a540516ad620f6c73",
+          "url": "https://www.vinted.nl/items/9760671411-m-charizard-ex-69106",
+          "photo": "https://images1.vinted.net/t/06_01a14_6UFZe8yDRfrvFXCaJcUuY44w/f800/1787562946.jpeg?s=ef031793b970dc00d017d7c50e9e38b80150304e",
           "brand": "Pokémon",
-          "seller": "samueleilritorno1"
+          "seller": "nickskledingkast"
         },
         {
           "id": 9655207377,
@@ -3107,6 +3107,16 @@
           "seller": "oasistcg"
         },
         {
+          "id": 9761295158,
+          "title": "Mega Charizard Y ex tin te koop",
+          "price": "40.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9761295158-mega-charizard-y-ex-tin-te-koop",
+          "photo": "https://images1.vinted.net/t/02_008db_jLd9JMEhZmmW22b35vjjNvjL/f800/1787566469.jpeg?s=716d2bf49c76d10a12382905b26ee20a594662dd",
+          "brand": "Pokémon",
+          "seller": "sibeeckm"
+        },
+        {
           "id": 9745085666,
           "title": "Charizard ex super premium collection box",
           "price": "35.0",
@@ -3117,14 +3127,34 @@
           "seller": "samsuitverkoop"
         },
         {
-          "id": 9753196759,
-          "title": "Mega Charizard X Ex 013/094",
-          "price": "5.0",
+          "id": 9761321388,
+          "title": "Mega Charizard X ex tin te koop",
+          "price": "40.0",
           "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9753196759-mega-charizard-x-ex-013094",
-          "photo": "https://images1.vinted.net/t/06_01f77_TH4ivkD5n3rSJJiNwoGc4j8n/f800/1787497132.jpeg?s=08f61fa1593ec053714b21e65cf934848f0f68fd",
+          "url": "https://www.vinted.nl/items/9761321388-mega-charizard-x-ex-tin-te-koop",
+          "photo": "https://images1.vinted.net/t/05_008ae_boea2YLNjYQbiVEofXfCN8v8/f800/1787566611.jpeg?s=9b484e587a81aa704e9f7f43afce9401d0a4aa19",
           "brand": "Pokémon",
-          "seller": "jecards"
+          "seller": "sibeeckm"
+        },
+        {
+          "id": 9759342806,
+          "title": "Upc charizard ex ita",
+          "price": "130.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9759342806-upc-charizard-ex-ita",
+          "photo": "https://images1.vinted.net/t/05_0180f_dY1dpszrWpFFC2wGLzL2BDsn/f800/1787546176.jpeg?s=dd3774b54d53611d5fc3a2fede5c84b1e73e906b",
+          "brand": "Pokémon",
+          "seller": "freedomnunzia"
+        },
+        {
+          "id": 9176145060,
+          "title": "Mega Charizard X ex MEP 023",
+          "price": "100.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9176145060-mega-charizard-x-ex-mep-023",
+          "photo": "https://images1.vinted.net/t/01_00af9_4z6iHkXCR6My2FRjnH5LaHEM/f800/1781468953.jpeg?s=91caad7341f98e1af264863bcf6c7f9befac5db9",
+          "brand": "Pokémon",
+          "seller": "foxyfox89"
         },
         {
           "id": 9717729483,
@@ -3137,54 +3167,34 @@
           "seller": "bestb21"
         },
         {
-          "id": 9758137907,
-          "title": "Charizard EX 006/165 pokemon 151",
-          "price": "5.0",
+          "id": 9758960233,
+          "title": "Mega Charizard X ex - MEP 023, la promo full-art della Collezione Ultra Premium Mega Charizard X",
+          "price": "50.0",
           "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9758137907-charizard-ex-006165-pokemon-151",
-          "photo": "https://images1.vinted.net/t/05_01e55_5vG6wvSKxdV3dPsWk8MnJa3T/f800/1787518757.jpeg?s=f7f8b3d464a8e0ba508d25c9a83d138925d1b891",
+          "url": "https://www.vinted.nl/items/9758960233-mega-charizard-x-ex-mep-023-la-promo-full-art-della-collezione-ultra-premium-mega-charizard-x",
+          "photo": "https://images1.vinted.net/t/04_002d9_2RjPoUr7aCnMB8EEo8vSzfde/f800/1787531479.jpeg?s=7a2d680cb443b1ed1daf5c1c62dd0154eb99e4f2",
           "brand": "Pokémon",
-          "seller": "yoell-1998"
+          "seller": "ldm_imprenditore"
         },
         {
-          "id": 9739860241,
-          "title": "Pokémonkaart Charizard ex",
-          "price": "16.0",
+          "id": 9758884226,
+          "title": "Charizard Y ex e mega greninja ex",
+          "price": "3.0",
           "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9739860241-pokemonkaart-charizard-ex",
-          "photo": "https://images1.vinted.net/t/02_01d4a_ZbUc9DGwbcH3yWonWa794sEf/f800/1787403143.jpeg?s=4070709370c49a7ade0e27262f8a59621f96b572",
+          "url": "https://www.vinted.nl/items/9758884226-charizard-y-ex-e-mega-greninja-ex",
+          "photo": "https://images1.vinted.net/t/02_001a5_Xh9ag8Z8Z5U8Pmweq1E1kunm/f800/1787529451.jpeg?s=6377d6d7f35abd8b942f65178fe92c624ba423fb",
           "brand": "Pokémon",
-          "seller": "veala"
+          "seller": "marcot228"
         },
         {
-          "id": 9736526002,
-          "title": "Charizard EX 74 promo",
-          "price": "19.5",
+          "id": 9755031923,
+          "title": "Oricorio ex 024 - Promo Mega charizard x ex upc",
+          "price": "17.0",
           "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9736526002-charizard-ex-74-promo",
-          "photo": "https://images1.vinted.net/t/05_00dcd_zzAu4Q6aKrzLRenUgDRBxQpj/f800/1787385075.jpeg?s=478e2721dd2d047a37aa57ec9213934772a915b8",
+          "url": "https://www.vinted.nl/items/9755031923-oricorio-ex-024-promo-mega-charizard-x-ex-upc",
+          "photo": "https://images1.vinted.net/t/02_0077c_JMcvRPKtUYgBdmkVooJDgFdS/f800/1787503668.jpeg?s=6bab933391a39fc66aba15296fae19b2b14e42ba",
           "brand": "Pokémon",
-          "seller": "thijseverse12"
-        },
-        {
-          "id": 9755642278,
-          "title": "Pokémon Charizard EX XY121 – XY Promo – 2016 – Frans – LP",
-          "price": "80.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9755642278-pokemon-charizard-ex-xy121-xy-promo-2016-frans-lp",
-          "photo": "https://images1.vinted.net/t/04_00a5f_FFLXiT92CjxJrxsaXgCSUVxi/f800/1787505986.jpeg?s=989ed6d92b2a8abe12cf9d317bd046beab7a9d27",
-          "brand": "Pokémon",
-          "seller": "sammclement"
-        },
-        {
-          "id": 9548066403,
-          "title": "Mega charizard ex 13/108",
-          "price": "12.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9548066403-mega-charizard-ex-13108",
-          "photo": "https://images1.vinted.net/t/01_00be1_6JyLAfSt4aDipCWvJTXN6ohF/f800/1785602791.jpeg?s=e61163758747cc666e8eb9913401f24f4dd16a6b",
-          "brand": "Pokémon",
-          "seller": "pokegorgon"
+          "seller": "patrick859"
         },
         {
           "id": 9693864364,
@@ -3197,6 +3207,16 @@
           "seller": "poke_doubleffe"
         },
         {
+          "id": 9702382949,
+          "title": "Charizard ex 056",
+          "price": "17.5",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9702382949-charizard-ex-056",
+          "photo": "https://images1.vinted.net/t/06_01d3c_rZ3h7Uf5J78VDTtVAghVvwfZ/f800/1787077093.jpeg?s=3a9ec9e68ed9acb48da3e0e2d9d066b841b84f88",
+          "brand": "Pokémon",
+          "seller": "thibaultvh10"
+        },
+        {
           "id": 9745636476,
           "title": "Charizard ex (svp 056)",
           "price": "8.0",
@@ -3207,14 +3227,34 @@
           "seller": "alevallasciani"
         },
         {
-          "id": 9753684814,
-          "title": "Mega Charizard Y ex (ASC 022)",
-          "price": "1.9",
+          "id": 9745319877,
+          "title": "Pokemon charizard",
+          "price": "4.0",
           "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9753684814-mega-charizard-y-ex-asc-022",
-          "photo": "https://images1.vinted.net/t/06_015c5_BwDcRMcp7Jmujf9ByQtr7XWc/f800/1787498881.jpeg?s=097b635ba2c97b34801fb4e08c1f81120991ca3e",
+          "url": "https://www.vinted.nl/items/9745319877-pokemon-charizard",
+          "photo": "https://images1.vinted.net/t/02_00cd2_2y5ZJWV44yjv2r21QSDMuVYo/f800/1787432108.jpeg?s=13dbd7a494c3c33de5c323b0f44505374a3efa0d",
           "brand": "Pokémon",
-          "seller": "cabro97"
+          "seller": "bassiepoke94"
+        },
+        {
+          "id": 9761173526,
+          "title": "Charizard",
+          "price": "600.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9761173526-charizard",
+          "photo": "https://images1.vinted.net/t/05_007d0_Pseg3mKrKTd7DuJ4Akh7NkFf/f800/1787565793.jpeg?s=89de5e309e386fae738afd638946cbe6fd7c00b8",
+          "brand": "Pokémon",
+          "seller": "kantopacks11"
+        },
+        {
+          "id": 9597953797,
+          "title": "Charizard ex",
+          "price": "22.0",
+          "currency": "EUR",
+          "url": "https://www.vinted.nl/items/9597953797-charizard-ex",
+          "photo": "https://images1.vinted.net/t/06_01376_zLRbcua2gVGeHPt8RxxKop3H/f800/1786103596.jpeg?s=d8bc2182129dc526cbd0d647d6834cf0ef8625df",
+          "brand": "Pokémon",
+          "seller": "bouwman1234"
         },
         {
           "id": 9725066732,
@@ -3227,54 +3267,14 @@
           "seller": "jaropiet"
         },
         {
-          "id": 9667457439,
-          "title": "Mega Charizard X ex (m2 013)",
-          "price": "1.2",
+          "id": 9737116461,
+          "title": "Charizard ex 054/091 en charizard vstar 019/159",
+          "price": "14.0",
           "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9667457439-mega-charizard-x-ex-m2-013",
-          "photo": "https://images1.vinted.net/t/05_01fa4_aUsPvx1zZzvTxKv76eXkiKzs/f800/1786794186.jpeg?s=e65017d377a6ae8eacb574e450774d9f16691409",
+          "url": "https://www.vinted.nl/items/9737116461-charizard-ex-054091-en-charizard-vstar-019159",
+          "photo": "https://images1.vinted.net/t/02_026c4_exyy5WoRTSQaEMJm4ojF9bm8/f800/1787389247.jpeg?s=1e08f6dd19e028e25810722a64ccb0eabec08ee8",
           "brand": "Pokémon",
-          "seller": "strafeox"
-        },
-        {
-          "id": 9740896100,
-          "title": "Charizard ex promo",
-          "price": "6.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9740896100-charizard-ex-promo",
-          "photo": "https://images1.vinted.net/t/06_0260b_GXpuvgyRFYGN6M3baFGG6ybE/f800/1787407824.jpeg?s=3c910c297fecb123ca4779fb4b88cdf135c8869a",
-          "brand": "Pokémon",
-          "seller": "antonh856"
-        },
-        {
-          "id": 9624208981,
-          "title": "Charizard ex obsidian flames",
-          "price": "100.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9624208981-charizard-ex-obsidian-flames",
-          "photo": "https://images1.vinted.net/t/06_0260f_sfLk85iJXKNU1i61z3BAj269/f800/1786360695.jpeg?s=6dd2ef7ad5c466a0498fd77e72f0e5b4c21fe22b",
-          "brand": "Pokémon",
-          "seller": "dylantichelaar09"
-        },
-        {
-          "id": 9738109205,
-          "title": "Pokemon card mega Charizard ex",
-          "price": "4.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9738109205-pokemon-card-mega-charizard-ex",
-          "photo": "https://images1.vinted.net/t/06_0032d_2sYJFC8d9h4rfYQLcStRbnEb/f800/1787394519.jpeg?s=b6e38831e22d2e19add0b0c6e788d17c3f920670",
-          "brand": "Pokémon",
-          "seller": "monicatjhu89"
-        },
-        {
-          "id": 9597953797,
-          "title": "Charizard ex",
-          "price": "22.0",
-          "currency": "EUR",
-          "url": "https://www.vinted.nl/items/9597953797-charizard-ex",
-          "photo": "https://images1.vinted.net/t/06_01376_zLRbcua2gVGeHPt8RxxKop3H/f800/1786103596.jpeg?s=d8bc2182129dc526cbd0d647d6834cf0ef8625df",
-          "brand": "Pokémon",
-          "seller": "bouwman1234"
+          "seller": "clautje78"
         }
       ],
       "filtered_non_english": 0

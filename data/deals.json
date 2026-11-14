@@ -2859,7 +2859,7 @@
   },
   "Charizard ex": {
     "match_type": "exact",
-    "checked_at": "2026-11-13T11:39:59.950268+00:00",
+    "checked_at": "2026-11-14T16:11:55.793250+00:00",
     "cardmarket": [
       {
         "id": "ex6-105",
@@ -3074,7 +3074,7 @@
     ],
     "vinted": {
       "ok": false,
-      "status_code": 404,
+      "status_code": 403,
       "items": [],
       "filtered_non_english": 0
     }
